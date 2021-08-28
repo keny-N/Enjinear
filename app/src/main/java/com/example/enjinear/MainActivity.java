@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity {
+import android.widget.Button;
+
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
 
     int data = 0;
     static public String EXTRA_DATA= "a";
@@ -16,7 +20,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        findViewById(R.id.button_map).setOnClickListener(this);
     }
+
 
      public void transitionHistory(android.view.View view){
         //インデントの作成
@@ -30,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
      }
 
+
+    @Override
+    public void onClick(View v) {
+        // Do something in response to button click
+        Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+        startActivity(intent);
+    }
 
 
 }
