@@ -11,11 +11,16 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.time.LocalDateTime;
+
 public class WalkAround extends AppCompatActivity {
+
 
     static final int REQUEST_CAPTURE_IMAGE = 100;
     Button button1;
     ImageView imageView1;
+
+    long startingTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,20 @@ public class WalkAround extends AppCompatActivity {
             Bitmap capturedImage=(Bitmap)data.getExtras().get("data");
             imageView1.setImageBitmap(capturedImage);
         }
+    }
+
+    public void startTimeCount(android.view.View view){
+        startingTime = System.currentTimeMillis();
+        LocalDateTime startingLocalTime = LocalDateTime.now();
+        System.out.println(startingLocalTime);
+    }
+    public void stopTimeCount(android.view.View view){
+        long stoppingTime = System.currentTimeMillis();
+        LocalDateTime stoppingLocalTime = LocalDateTime.now();
+        System.out.println(stoppingLocalTime);
+        long walkingTime = stoppingTime - startingTime;
+        System.out.println(walkingTime);
+
     }
 
 
