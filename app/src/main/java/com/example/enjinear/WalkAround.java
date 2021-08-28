@@ -9,6 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.time.LocalDateTime;
@@ -36,15 +40,33 @@ public class WalkAround extends AppCompatActivity {
 
     }
 
+    ActivityResultLauncher<Intent> _launcherSelectButton1 = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode()==RESULT_OK){
+                        Intent resultData = result.getData();
+                        if(resultData != null){
+                            Bitmap capturedImage=(Bitmap)resultData.getExtras().get("data");
+                            imageView1.setImageBitmap(capturedImage);
+                        }
+                    }
+                }
+            }
+    );
+
     protected void setListeners(){
         button1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent,REQUEST_CAPTURE_IMAGE);
+                _launcherSelectButton1.launch(intent);
             }
         });
     }
+
+
     //TODO 呼び出しは出来てるから、表示か保存したい
     protected void OnActivityResult(
             int requestCode,int resultCode,Intent data){
