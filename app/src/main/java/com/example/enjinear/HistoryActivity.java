@@ -24,32 +24,39 @@ public class HistoryActivity extends AppCompatActivity {
         rootView = findViewById(R.id.root);
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        //JSON受け取ってforeachで回す
-        //foreach{
+        // Dummy List for debugging
+        String []DummyJsonList = new String[16];
+        for ( int i=0; i< 16; i++ ){
+            DummyJsonList[i] = "JSON_DATA"+i;
+        }
 
-        String JSON = "JSON_DATA";
-        LinearLayout linearLayout = createLinearLayout(JSON);
-        //コンテンツの追加
-        rootView.addView(linearLayout);
-        //}
+        //JSON受け取ってforeachで回す
+        for(String Json : DummyJsonList){
+            TextView historyRow = makeHistoryRow(Json);
+            //コンテンツの追加
+            rootView.addView(historyRow, rootView.getChildCount());
+        }
     }
 
-    private LinearLayout createLinearLayout(String str){
-        // LinearLayoutのインスタンス作成
-        LinearLayout linearLayout = new LinearLayout(this);
-        // LinearLayoutの特徴としてorientation(方向)を決る
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        // setContentViewに設定
-        setContentView(linearLayout);
+
+    private TextView makeHistoryRow(String str){
+        /* AKASHI TIPS - この関数がやること ***********
+        * 戻り値:View型かそれを継承したクラス(現在はデバッグのためTextView)
+        * やること
+        * 　　rootViewの中に並べる子要素を作ること
+        * 　　　現在はTextのみの入力のため、TextVIewで問題ない
+        * 　　サブのxmlを利用して、その中に要素等がある場合
+        * 　　　View sub = getLayoutInflater().inflate(R.layout.<layout名>, linearLayout);
+        * 　　　などとして、layoutを貰ってきて、JSONからの情報をインプットして返す
+        * 入力値のJSONは以下URLの"Responses"欄を参照
+        * 　https://developers.google.com/maps/documentation/roads/snap?hl=ja
+        * */
 
         // TextView インスタンス生成
-        TextView textView = new TextView(this);
-        textView.setText(str);
-        linearLayout.addView(textView,
-                new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT));
-        return linearLayout;
+        TextView historyRow = new TextView(this);
+        historyRow.setText(str);
+
+        return historyRow;
     }
 
 }
