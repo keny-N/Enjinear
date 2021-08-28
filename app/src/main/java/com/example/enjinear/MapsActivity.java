@@ -12,6 +12,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.enjinear.databinding.ActivityMapsBinding;
 
+import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -49,13 +55,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
-    public Response getRoadLoute(  ){
+    public Response getRoadRoute( Position positionList[] ) throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
+        String url = "https://roads.googleapis.com/v1/snapToRoads?path=";
+        for (Position pos: positionList){
+            url += pos.lat+"."+pos.lon+"|";
+        }
+        url = url.substring(0,url.length()-1);
+        url += "&interpolate=true&key=YOUR_API_KEY";
+
         Request request = new Request.Builder()
-                .url("https://roads.googleapis.com/v1/snapToRoads?path=-35.27801,149.12958|-35.28032,149.12907|-35.28099,149.12929|-35.28144,149.12984|-35.28194,149.13003|-35.28282,149.12956|-35.28302,149.12881|-35.28473,149.12836&interpolate=true&key=YOUR_API_KEY")
+                .url(url)
                 .method("GET", null)
                 .build();
         Response response = client.newCall(request).execute();
+
+        return response;
     }
 }
