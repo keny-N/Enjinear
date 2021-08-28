@@ -12,6 +12,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.enjinear.databinding.ActivityMapsBinding;
 
+import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -47,5 +53,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    public Response getRoadRoute( Position positionList[] ) throws IOException {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        String url = "https://roads.googleapis.com/v1/snapToRoads?path=";
+        for (Position pos: positionList){
+            url += pos.lat+"."+pos.lon+"|";
+        }
+        url = url.substring(0,url.length()-1);
+        url += "&interpolate=true&key=YOUR_API_KEY";
+
+        Request request = new Request.Builder()
+                .url(url)
+                .method("GET", null)
+                .build();
+        Response response = client.newCall(request).execute();
+
+        return response;
     }
 }
