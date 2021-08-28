@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void moveToWalkAround(android.view.View view){
 //        Intent intent = new Intent(this,WalkAround.class);
-        Button button = findViewById(R.id.button);
+        Button button = findViewById(R.id.button_walkAround);
         button.setOnClickListener((View v) -> {
             startActivity(new Intent(this, WalkAround.class));
         });
