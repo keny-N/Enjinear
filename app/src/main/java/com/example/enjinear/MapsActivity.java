@@ -73,4 +73,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         return response;
     }
+
+    public Position getCurrentPosition(){
+        Position pos = new Position();
+
+        return pos;
+    }
 }
