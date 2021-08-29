@@ -50,6 +50,7 @@ public class WalkAround extends AppCompatActivity {
                         if(resultData != null){
                             Bitmap capturedImage=(Bitmap)resultData.getExtras().get("data");
                             imageView1.setImageBitmap(capturedImage);
+                            MediaStore.Images.Media.insertImage(getContentResolver(),capturedImage,"","");
                         }
                     }
                 }
@@ -67,14 +68,7 @@ public class WalkAround extends AppCompatActivity {
     }
 
 
-    //TODO 呼び出しは出来てるから、表示か保存したい
-    protected void OnActivityResult(
-            int requestCode,int resultCode,Intent data){
-        if(REQUEST_CAPTURE_IMAGE== requestCode&& resultCode == Activity.RESULT_OK){
-            Bitmap capturedImage=(Bitmap)data.getExtras().get("data");
-            imageView1.setImageBitmap(capturedImage);
-        }
-    }
+
 
     public void startTimeCount(android.view.View view){
         startingTime = System.currentTimeMillis();
