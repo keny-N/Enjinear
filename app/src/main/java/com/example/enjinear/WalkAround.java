@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -79,6 +80,7 @@ public class WalkAround extends AppCompatActivity implements
                             Bitmap capturedImage=(Bitmap)resultData.getExtras().get("data");
                             //imageView1.setImageBitmap(capturedImage);
                             MediaStore.Images.Media.insertImage(getContentResolver(),capturedImage,"","");
+                            Toast.makeText(getApplicationContext(), "写真を保存しました", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
