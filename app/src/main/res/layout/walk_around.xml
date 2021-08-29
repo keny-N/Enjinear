@@ -9,7 +9,7 @@
     android:background="@color/cardview_light_background"
     tools:context=".MainActivity">
 
-    <com.google.android.gms.maps.MapView
+    <FrameLayout
         android:id="@+id/mapView"
         android:layout_width="365dp"
         android:layout_height="436dp"
@@ -17,7 +17,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.135" />
+        app:layout_constraintVertical_bias="0.135" >
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    </FrameLayout>
 
     <TextView
 
@@ -39,15 +47,27 @@
 
 <TextView
         android:id="@+id/textView4"
-        android:layout_width="235dp"
-        android:layout_height="109dp"
+        android:layout_width="236dp"
+        android:layout_height="50dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.131"
+        app:layout_constraintHorizontal_bias="0.132"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mapView"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintVertical_bias="0.092" />
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="235dp"
+        android:layout_height="48dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/button1"
+        app:layout_constraintEnd_toStartOf="@+id/imageView1"
+        app:layout_constraintHorizontal_bias="0.605"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.615" />
 
     <Button
 
@@ -57,22 +77,22 @@
         android:text="カメラ起動"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.929" />
+
 
     <Button
         android:id="@+id/button2"
         android:layout_width="126dp"
         android:layout_height="65dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="60dp"
         android:text="戻る"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.929" />
-
 
     <ImageView
         android:id="@+id/imageView1"
@@ -94,7 +114,7 @@
         android:text="散歩の時間計測を開始"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
