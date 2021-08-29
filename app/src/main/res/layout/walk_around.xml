@@ -15,8 +15,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="330dp"
+        android:layout_height="76dp"
+        android:layout_margin="20dp"
+        android:textColor="#00f"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.627" />
 
+    <Button
+        android:id="@+id/stop_button"
+        android:layout_width="271dp"
+        android:layout_height="56dp"
+        android:layout_margin="10dp"
+        android:text="お散歩終了します。"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.774" />
+
+    <Button
         android:id="@+id/button1"
         android:layout_width="126dp"
         android:layout_height="65dp"
@@ -52,30 +78,5 @@
         app:layout_constraintVertical_bias="0.07"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 
-    <Button
-        android:id="@+id/button_start_timeCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="startTimeCount"
-        android:text="散歩の時間計測を開始"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.004"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
-
-    <Button
-        android:id="@+id/button_stop_timeCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="stopTimeCount"
-        android:text="散歩の時間計測を終了"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
