@@ -9,6 +9,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.view.View;
@@ -37,9 +39,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -47,15 +51,21 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class WalkAround extends AppCompatActivity implements LocationListener, OnMapReadyCallback {
+public class WalkAround extends AppCompatActivity implements LocationListener, OnMapReadyCallback, Runnable, View.OnClickListener {
     static final int REQUEST_CAPTURE_IMAGE = 100;
     Button button1;
     ImageView imageView1;
 
     long startingTime = 0;
+    long endTime;
+    long startTime;
+    private TextView timerText;
     boolean isWalking = false;
 
     Timer timer;
+    private volatile boolean stopRun;
+    // 'Handler()' is deprecated as of API 30: Android 11.0 (R)
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     private Position currentPosition = new Position();
     private List<Position> route = new ArrayList<Position>();
@@ -66,6 +76,9 @@ public class WalkAround extends AppCompatActivity implements LocationListener, O
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
     private List<Polyline> polyline1 = new ArrayList<Polyline>();;
     private Gson responsePosData = new Gson();
+
+    private final SimpleDateFormat dataFormat =
+            new SimpleDateFormat("mm:ss", Locale.JAPAN);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +149,54 @@ public class WalkAround extends AppCompatActivity implements LocationListener, O
                     addPolyline(currentPosition);
                 }
             }, 10, 60000);
+
+        timerText = findViewById(R.id.timer);
+        timerText.setText(dataFormat.format(0));
+
+        startTime = System.currentTimeMillis();
+
+        Thread thread;
+        stopRun = false;
+        thread = new Thread(this);
+        thread.start();
+
+
+        Button stopButton = findViewById(R.id.button_integrated_startnstop);
+        stopButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        stopRun = true;
+        timerText.setText(dataFormat.format(0));
+    }
+
+    @Override
+    public void run() {
+        // 10 msec order
+        int period = 100;
+
+        while (!stopRun) {
+            // sleep: period msec
+            try {
+                Thread.sleep(period);
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+                stopRun = true;
+            }
+
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    endTime = System.currentTimeMillis();
+                    // カウント時間 = 経過時間 - 開始時間
+                    long diffTime = (endTime - startTime);
+
+                    timerText.setText(dataFormat.format(diffTime));
+                }
+            });
+        }
     }
 
     @Override
