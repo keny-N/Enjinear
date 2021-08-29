@@ -40,7 +40,7 @@ public class WalkAround extends AppCompatActivity implements
     private volatile boolean stopRun = false;
 
     private final SimpleDateFormat dataFormat =
-            new SimpleDateFormat("HH:mm:ss", Locale.JAPAN);
+            new SimpleDateFormat("mm:ss", Locale.JAPAN);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
